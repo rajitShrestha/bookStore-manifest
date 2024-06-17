@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deploy
+  labels:
+    app: book-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-store
+  template:
+    metadata:
+      labels:
+        app: book-store
+    spec:
+      containers:
+      - name: book-store
+        image: dockshresthahub/store-front:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: REACT_APP_BACKEND_URL
+          value: "http://localhost:5555"
